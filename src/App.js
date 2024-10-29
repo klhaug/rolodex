@@ -5,34 +5,51 @@ import { Component } from 'react';
 class App extends Component {
   constructor() {
     super();
+   
     this.state = {
-      name: {firstName: 'Kristian', lastName: 'Haug'}
+      input: '',
+      monsters: [
+          {
+            name: 'Jackie'
+          },
+          {
+            name: 'Chang'
+          },
+          {
+            name: 'Shrek'
+          }
+        ]
+      }
     }
-  }
 
-  render(){
+  
+
+  render() {
+   const {monsters, input} = this.state
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Hei {this.state.firstName}, is your last name {this.state.lastName}?
-          </p>
-          <button 
-            onClick={() => {
-              this.setState(
-                () => {
-                  return {
-                    name: { firstName: "Andrei", lastName: 'Neagoi'})
-                  }
-                }
-        }}>
-            Change name
-          </button>
-        </header>
+       <input type='search' onChange={(event) => {
+        this.setState(
+          () => {
+            return {
+              input: event.target.value
+            }
+          },
+          () => {
+            console.log(input)
+          }
+        )
+       }}></input>
+        {monsters.map((i) => {
+          return (
+            <h1>{i.name} ❤️</h1>
+          )
+        })}
       </div>
     );
   }
 }
+
 
 export default App;
