@@ -34,7 +34,7 @@ class App extends Component {
           {this.state.monsters.map((monsters) => {
               return (
               <div key={monsters.id}> 
-                  <h1>{monsters.name}</h1>
+                  <h1>{monsters.name} is my name!</h1>
               </div> 
               )
             })}
