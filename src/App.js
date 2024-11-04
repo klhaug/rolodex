@@ -9,10 +9,12 @@ class App extends Component {
     this.state = {
       input: '',
       monsters: []
-      }
+      };
+      console.log("constructor")
     }
  
     componentDidMount() {
+      console.log("componentDidMount")
       fetch('https://jsonplaceholder.typicode.com/users')
         .then(response => response.json())
         .then((users) => {
@@ -21,24 +23,38 @@ class App extends Component {
               return {
                 monsters: users
               };
-            },
-            console.log(this.state)
+            }, 
+            () => {
+              console.log(this.state)
+            }
           )
         })
-    }
-    
+      }
+
 
   render() {
+    console.log("render")
     return (
       <div className="App">
-          {this.state.monsters.map((monsters) => {
-              return (
-              <div key={monsters.id}> 
-                  <h1>{monsters.name} is my name! I'm keeping the streak alive! Keeping the streak alive once more.... Last keeping the streak alive... 
-                  </h1>
-              </div> 
-              )
-            })}
+        <input 
+          className='search-box' 
+          type='search' 
+          placeholder='search monsters' 
+          onChange={(event) => {
+            const searchBox = event.target.value.toLocaleLowerCase();
+            const filteredMonsters = this.state.monsters.filter((monsters) => {
+              return monsters.name.toLocaleLowerCase().includes(searchBox);
+            })
+            this.setState(() => {
+             return {monsters : filteredMonsters};
+            })
+          }}
+         />
+         {this.state.monsters.map((monsters) => {
+          return <div key={monsters.id}>
+            <h1>{monsters.name}</h1>
+          </div>
+         })}
       </div>
     );
   }
