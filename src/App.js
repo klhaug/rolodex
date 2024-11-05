@@ -52,7 +52,7 @@ class App extends Component {
          />
          {this.state.monsters.map((monsters) => {
           return <div key={monsters.id}>
-            <h1>{monsters.name}</h1>
+            <h1>{monsters.name}</h1> Keeping the streak alive. 
           </div>
          })}
       </div>
