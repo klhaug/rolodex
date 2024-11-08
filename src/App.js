@@ -7,8 +7,8 @@ class App extends Component {
     super();
    
     this.state = {
-      input: '',
-      monsters: []
+      searchField: '',
+      monsters: [],
       };
       console.log("constructor")
     }
@@ -31,8 +31,21 @@ class App extends Component {
         })
       }
 
+    onSearchChange = (event) => {
+      const searchField = event.target.value.toLocaleLowerCase()
+      this.setState(() => {
+        return {searchField}
+      })
+    }
 
   render() {
+    const {monsters, searchField} = this.state;
+    const {onSearchChange} = this;
+    
+    const filteredMonsters = monsters.filter((monsters) => {
+      return monsters.name.toLocaleLowerCase().includes(searchField);
+    });
+
     console.log("render")
     return (
       <div className="App">
@@ -40,19 +53,12 @@ class App extends Component {
           className='search-box' 
           type='search' 
           placeholder='search monsters' 
-          onChange={(event) => {
-            const searchBox = event.target.value.toLocaleLowerCase();
-            const filteredMonsters = this.state.monsters.filter((monsters) => {
-              return monsters.name.toLocaleLowerCase().includes(searchBox);
-            })
-            this.setState(() => {
-             return {monsters : filteredMonsters};
-            })
-          }}
+          onChange={onSearchChange}
          />
-         {this.state.monsters.map((monsters) => {
-          return <div key={monsters.id}>
-            <h1>{monsters.name}</h1> Keeping the streak alive. LAST KEEPING THE STREAK ALIVE. TRUMP WON. This is the last just keeping the streak alive. 
+         {filteredMonsters.map((filteredMonsters) => {
+          return <div key={filteredMonsters.id}>
+            <h1>{filteredMonsters.name}</h1> 
+
           </div>
          })}
       </div>
