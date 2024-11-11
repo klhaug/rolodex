@@ -3,6 +3,11 @@ import CardList from './components/card-list/card-list.component';
 import SearchBox from './components/searchbox/search-box.component';
 import { Component } from 'react';
 
+const App = () => {
+  
+}
+
+
 class App extends Component {
   constructor() {
     super();
